@@ -1,22 +1,23 @@
 import SwiftUI
 
-struct CategoryRowView: View {
-    var categories: [ProductCategory]
+struct ProductSectionView: View {
+    var title: String
+    var products: [Product]
     var showSeeAll: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
             // Header với nút "Xem tất cả"
             HStack {
-                Text("Danh mục")
+                Text(title)
                     .font(.headline)
                 
                 Spacer()
                 
                 if showSeeAll {
                     NavigationLink(destination: AllItemsView(
-                        title: "Tất cả danh mục",
-                        type: .categories(categories)
+                        title: "Tất cả sản phẩm",
+                        type: .products(products)
                     )) {
                         HStack(spacing: 4) {
                             Text("Xem tất cả")
@@ -31,21 +32,9 @@ struct CategoryRowView: View {
             
             // Danh sách cuộn ngang
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(categories) { category in
-                        VStack(spacing: 8) {
-                            Circle()
-                                .fill(Color.blue.opacity(0.1))
-                                .frame(width: 60, height: 60)
-                                .overlay(
-                                    Image(systemName: category.iconName)
-                                        .font(.title2)
-                                        .foregroundColor(.blue)
-                                )
-                            Text(category.name)
-                                .font(.caption)
-                                .fontWeight(.medium)
-                        }
+                HStack(spacing: 16) {
+                    ForEach(products) { product in
+                        ProductCardView(product: product)
                     }
                 }
                 .padding(.horizontal)
@@ -56,8 +45,9 @@ struct CategoryRowView: View {
 
 #Preview {
     NavigationStack {
-        CategoryRowView(
-            categories: SampleData.categories,
+        ProductSectionView(
+            title: "Sản phẩm nổi bật",
+            products: SampleData.products,
             showSeeAll: true
         )
     }
