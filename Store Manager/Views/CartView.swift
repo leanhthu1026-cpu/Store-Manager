@@ -1,95 +1,119 @@
 import SwiftUI
 
 struct CartView: View {
-    // Dữ liệu giả lập (sau này sẽ lấy từ ViewModel hoặc Database)
-    @State private var cartItems: [CartItem] = SampleData.cartItems
+    @Bindable var cartManager = CartManager.shared
+    @Environment(\.dismiss) private var dismiss
+    @State private var showSuccessAlert = false
+    
+    var totalPrice: Double {
+        cartManager.cartItems.reduce(0) { $0 + ($1.product.price * Double($1.quantity)) }
+    }
+    
+    func formatCurrency(_ price: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        let stringValue = formatter.string(from: NSNumber(value: price)) ?? "\(Int(price))"
+        return "\(stringValue)đ"
+    }
     
     var body: some View {
         NavigationStack {
             VStack {
-                if cartItems.isEmpty {
-                    // Trường hợp giỏ hàng trống
-                    VStack(spacing: 16) {
-                        Image(systemName: "cart.badge.minus")
-                            .font(.system(size: 60))
-                            .foregroundColor(.gray)
-                        Text("Giỏ hàng của bạn đang trống")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                    }
-                    .frame(maxHeight: .infinity)
+                if cartManager.cartItems.isEmpty {
+                    ContentUnavailableView(
+                        "Giỏ hàng trống",
+                        systemImage: "cart.badge.minus",
+                        description: Text("Hãy thêm các chú cá và phụ kiện yêu thích vào đây nhé!")
+                    )
                 } else {
-                    // Danh sách sản phẩm trong giỏ
                     List {
-                        ForEach(cartItems) { item in
-                            HStack(spacing: 12) {
-                                // Ảnh sản phẩm
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.orange.opacity(0.2))
-                                    .frame(width: 60, height: 60)
+                        ForEach($cartManager.cartItems) { $item in
+                            HStack(spacing: 14) {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.orange.opacity(0.12))
+                                    .frame(width: 54, height: 54)
                                     .overlay(
                                         Image(systemName: item.product.imageName)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 28, height: 28)
                                             .foregroundColor(.orange)
                                     )
                                 
-                                // Tên & Giá
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.product.name)
+                                        .font(.headline)
+                                    Text(item.product.formattedPrice)
                                         .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text("\(item.product.price, specifier: "%.0f")đ")
-                                        .font(.caption)
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(.red)
                                 }
                                 
                                 Spacer()
                                 
-                                // Số lượng
-                                Text("x\(item.quantity)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                HStack(spacing: 8) {
+                                    Button(action: {
+                                        cartManager.decreaseQuantity(item: item)
+                                    }) {
+                                        Image(systemName: "minus.circle")
+                                    }
+                                    
+                                    Text("\(item.quantity)")
+                                        .frame(minWidth: 20)
+                                    
+                                    Button(action: {
+                                        cartManager.addToCart(product: item.product)
+                                    }) {
+                                        Image(systemName: "plus.circle")
+                                    }
+                                }
+                                .font(.title3)
+                                .buttonStyle(.borderless)
                             }
                             .padding(.vertical, 4)
                         }
-                        .onDelete { indexSet in
-                            cartItems.remove(atOffsets: indexSet)
+                        .onDelete { indices in
+                            cartManager.cartItems.remove(atOffsets: indices)
                         }
                     }
-                    .listStyle(.plain)
+                    .listStyle(.insetGrouped)
                     
-                    // Thanh toán
                     VStack(spacing: 12) {
-                        Divider()
                         HStack {
-                            Text("Tổng cộng:")
+                            Text("Tổng thanh toán:")
                                 .font(.headline)
                             Spacer()
-                            let total = cartItems.reduce(0) { $0 + ($1.product.price * Double($1.quantity)) }
-                            Text("\(total, specifier: "%.0f")đ")
+                            Text(formatCurrency(totalPrice))
                                 .font(.title3)
-                                .fontWeight(.bold)
+                                .bold()
                                 .foregroundColor(.red)
                         }
-                        .padding(.horizontal)
                         
                         Button(action: {
-                            print("Tiến hành thanh toán")
+                            cartManager.checkout()
+                            showSuccessAlert = true
                         }) {
-                            Text("Thanh toán")
+                            Text("Thanh toán (\(cartManager.totalCount))")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
-                                .padding()
+                                .frame(height: 50)
                                 .background(Color.blue)
-                                .cornerRadius(10)
+                                .cornerRadius(12)
                         }
-                        .padding(.horizontal)
                     }
-                    .padding(.bottom, 10)
+                    .padding()
+                    .background(Color(.systemBackground).shadow(radius: 2))
                 }
             }
             .navigationTitle("Giỏ hàng")
-            .navigationBarTitleDisplayMode(.inline)
+            .alert("Đặt hàng thành công! 🎉", isPresented: $showSuccessAlert) {
+                Button("OK", role: .cancel) {
+                    dismiss()
+                }
+            } message: {
+                Text("Cảm ơn bạn đã mua hàng tại Cá Cảnh Xinh. Đơn hàng đang được chuẩn bị và sẽ sớm được giao!")
+            }
         }
     }
 }

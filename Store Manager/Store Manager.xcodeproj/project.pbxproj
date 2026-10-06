@@ -25,6 +25,9 @@
 		8094D2ED3074D8C70005B11F /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094D2EB3074D8C50005B11F /* SampleData.swift */; };
 		8094D2EF3074DF370005B11F /* AllItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094D2EE3074DF350005B11F /* AllItemsView.swift */; };
 		8094D2F13074E2DB0005B11F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094D2F03074E2D50005B11F /* AccountView.swift */; };
+		B0B0F93D3075077700D47B46 /* Double+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F93C3075077700D47B46 /* Double+Format.swift */; };
+		B0B0F93F30750D9800D47B46 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */; };
+		B0B0F94130750E5100D47B46 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F94030750E5100D47B46 /* CartManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +49,10 @@
 		8094D2EB3074D8C50005B11F /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		8094D2EE3074DF350005B11F /* AllItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItemsView.swift; sourceTree = "<group>"; };
 		8094D2F03074E2D50005B11F /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		B01B853630735C8100261CB4 /* Store Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Store Manager.app"; path = "/Users/may04/Desktop/vochauanh/Store-Manager/Store Manager/build/Debug-iphoneos/Store Manager.app"; sourceTree = "<absolute>"; };
+		B0B0F9373074EFB700D47B46 /* Store Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Store Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B0F93C3075077700D47B46 /* Double+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Format.swift"; sourceTree = "<group>"; };
+		B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
+		B0B0F94030750E5100D47B46 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +88,7 @@
 				8045D4F030736E1600328D7C /* Product.swift */,
 				8045D4F130736E1600328D7C /* ProductCategory.swift */,
 				8094D2EB3074D8C50005B11F /* SampleData.swift */,
+				B0B0F93C3075077700D47B46 /* Double+Format.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -100,6 +107,8 @@
 				8094D2E43074D5700005B11F /* ProductSectionView.swift */,
 				8045D4FB30736E1600328D7C /* ProductCardView.swift */,
 				8094D2EE3074DF350005B11F /* AllItemsView.swift */,
+				B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */,
+				B0B0F94030750E5100D47B46 /* CartManager.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -112,6 +121,7 @@
 				8094D2E03074D13B0005B11F /* Preview Content */,
 				8045D4F230736E1600328D7C /* Models */,
 				8045D4FD30736E1600328D7C /* Views */,
+				B0B0F9373074EFB700D47B46 /* Store Manager.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,7 +148,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Store Manager";
-			productReference = B01B853630735C8100261CB4 /* Store Manager.app */;
+			productReference = B0B0F9373074EFB700D47B46 /* Store Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -194,8 +204,11 @@
 				8045D4FE30736E1600328D7C /* CategoryRowView.swift in Sources */,
 				8045D4FF30736E1600328D7C /* ProductCardView.swift in Sources */,
 				8045D50030736E1600328D7C /* CartItem.swift in Sources */,
+				B0B0F94130750E5100D47B46 /* CartManager.swift in Sources */,
 				8045D50230736E1600328D7C /* OrderStatus.swift in Sources */,
 				8045D50330736E1600328D7C /* BannerView.swift in Sources */,
+				B0B0F93F30750D9800D47B46 /* CategoryDetailView.swift in Sources */,
+				B0B0F93D3075077700D47B46 /* Double+Format.swift in Sources */,
 				8094D2E33074D46A0005B11F /* HomeView.swift in Sources */,
 				8045D50430736E1600328D7C /* Product.swift in Sources */,
 				8045D50630736E1600328D7C /* OrderView.swift in Sources */,

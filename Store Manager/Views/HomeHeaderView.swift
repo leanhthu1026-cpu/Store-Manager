@@ -4,62 +4,74 @@ struct HomeHeaderView: View {
     var storeName: String = "Cá Cảnh Xinh"
     var subtitle: String = "Thế giới thủy sinh trong tầm tay ♡"
     
+    var cartManager = CartManager.shared
+    @State private var showCartSheet = false
+    @State private var showNotificationSheet = false
+    
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .center) {
             HStack(spacing: 12) {
                 Image("logo")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 44, height: 44)
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(storeName)
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
                     Text(subtitle)
                         .font(.caption)
-                        .foregroundColor(.white.opacity(0.9))
+                        .foregroundColor(.gray)
                 }
             }
+            
             Spacer()
-            HStack(spacing: 16) {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: "bell")
-                        .font(.title3)
-                        .foregroundColor(.white)
-                    Circle().fill(Color.red).frame(width: 16, height: 16)
-                        .overlay(Text("3").font(.caption2).foregroundColor(.white))
-                        .offset(x: 8, y: -8)
+            
+            HStack(spacing: 14) {
+                Button(action: { showNotificationSheet = true }) {
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "bell")
+                            .font(.title3)
+                            .foregroundColor(.primary)
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 16, height: 16)
+                            .overlay(Text("3").font(.caption2).foregroundColor(.white))
+                            .offset(x: 8, y: -8)
+                    }
                 }
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: "cart")
-                        .font(.title3)
-                        .foregroundColor(.white)
-                    Circle().fill(Color.red).frame(width: 16, height: 16)
-                        .overlay(Text("2").font(.caption2).foregroundColor(.white))
-                        .offset(x: 8, y: -8)
+                
+                // Nút giỏ hàng tự động cập nhật số lượng
+                Button(action: { showCartSheet = true }) {
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "cart")
+                            .font(.title3)
+                            .foregroundColor(.primary)
+                        
+                        if cartManager.totalCount > 0 {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 16, height: 16)
+                                .overlay(Text("\(cartManager.totalCount)").font(.caption2).foregroundColor(.white))
+                                .offset(x: 8, y: -8)
+                        }
+                    }
                 }
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 16)
-        .background(
-            RoundedRectangle(cornerRadius: 7)
-                .fill(
-                    LinearGradient(
-                        colors: [.cyan, .blue],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-        )
+        .padding(.horizontal)
+        .sheet(isPresented: $showCartSheet) {
+            CartView()
+        }
+        .sheet(isPresented: $showNotificationSheet) {
+            NavigationStack {
+                List {
+                    Text("Không có thông báo mới.")
+                }
+                .navigationTitle("Thông báo")
+            }
+        }
     }
-}
-
-#Preview {
-    HomeHeaderView()
-        .padding()
-        .background(Color(.systemGroupedBackground))
 }
