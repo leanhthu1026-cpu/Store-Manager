@@ -1,8 +1,7 @@
-//
-//  CartItem.swift
-//  Store Manager
-//
-//  Created by MAY 03 on 5/10/26.
-//
-
 import Foundation
+
+struct CartItem: Identifiable {
+    let id = UUID()
+    var product: Product
+    var quantity: Int
+}
