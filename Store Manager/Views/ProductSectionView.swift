@@ -1,40 +1,25 @@
 import SwiftUI
 
 struct ProductSectionView: View {
-    var title: String
-    var products: [Product]
-    var showSeeAll: Bool = false
+    var title: String = "Sản phẩm nổi bật"
+    var products: [Product] = SampleData.products
     
     var body: some View {
-        VStack(alignment: .leading) {
-            // Header với nút "Xem tất cả"
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(title)
                     .font(.headline)
-                
                 Spacer()
-                
-                if showSeeAll {
-                    NavigationLink(destination: AllItemsView(
-                        title: "Tất cả sản phẩm",
-                        type: .products(products)
-                    )) {
-                        HStack(spacing: 4) {
-                            Text("Xem tất cả")
-                            Image(systemName: "chevron.right")
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.blue)
-                    }
-                }
+                Text("Xem tất cả >")
+                    .font(.caption)
+                    .foregroundColor(.blue)
             }
             .padding(.horizontal)
             
-            // Danh sách cuộn ngang
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(products) { product in
-                        ProductCardView(product: product)
+                HStack(spacing: 12) {
+                    ForEach(products) { item in
+                        ProductCardView(product: item)
                     }
                 }
                 .padding(.horizontal)
@@ -44,11 +29,5 @@ struct ProductSectionView: View {
 }
 
 #Preview {
-    NavigationStack {
-        ProductSectionView(
-            title: "Sản phẩm nổi bật",
-            products: SampleData.products,
-            showSeeAll: true
-        )
-    }
+    ProductSectionView()
 }

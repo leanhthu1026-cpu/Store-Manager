@@ -1,7 +1,9 @@
 import Foundation
 
 struct ProductCategory: Identifiable {
-    let id = UUID()
+    var id: UUID = UUID()
     var name: String
-    var iconName: String 
+    var subtitle: String
+    var iconName: String
+    var bgColorHex: String = "EBF5FB"
 }

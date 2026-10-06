@@ -1,64 +1,55 @@
 import SwiftUI
 
 struct CategoryRowView: View {
-    var categories: [ProductCategory]
-    var showSeeAll: Bool = false
+    let categories: [ProductCategory] = SampleData.fullCategories
+    
+    let gridRows = [
+        GridItem(.fixed(125), spacing: 14),
+        GridItem(.fixed(125), spacing: 14)
+    ]
     
     var body: some View {
-        VStack(alignment: .leading) {
-            // Header với nút "Xem tất cả"
-            HStack {
-                Text("Danh mục")
-                    .font(.headline)
-                
-                Spacer()
-                
-                if showSeeAll {
-                    NavigationLink(destination: AllItemsView(
-                        title: "Tất cả danh mục",
-                        type: .categories(categories)
-                    )) {
-                        HStack(spacing: 4) {
-                            Text("Xem tất cả")
-                            Image(systemName: "chevron.right")
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.blue)
-                    }
-                }
-            }
-            .padding(.horizontal)
-            
-            // Danh sách cuộn ngang
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(categories) { category in
-                        VStack(spacing: 8) {
-                            Circle()
-                                .fill(Color.blue.opacity(0.1))
-                                .frame(width: 60, height: 60)
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(rows: gridRows, spacing: 12) {
+                ForEach(categories) { cat in
+                    // Bấm vào chuyển sang trang sản phẩm của danh mục đó
+                    NavigationLink(destination: CategoryDetailView(category: cat)) {
+                        VStack(spacing: 6) {
+                            RoundedRectangle(cornerRadius: 18)
+                                .fill(Color(.systemGray6))
+                                .frame(width: 66, height: 66)
                                 .overlay(
-                                    Image(systemName: category.iconName)
-                                        .font(.title2)
+                                    Image(systemName: cat.iconName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 32, height: 32)
                                         .foregroundColor(.blue)
                                 )
-                            Text(category.name)
-                                .font(.caption)
-                                .fontWeight(.medium)
+                            
+                            Text(cat.name)
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(.primary)
+                                .lineLimit(1)
+                            
+                            Text(cat.subtitle)
+                                .font(.system(size: 10))
+                                .foregroundColor(.gray)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .frame(height: 24)
                         }
+                        .frame(width: 78)
                     }
+                    .buttonStyle(.plain)
                 }
-                .padding(.horizontal)
             }
+            .padding(.horizontal, 16)
         }
     }
 }
 
 #Preview {
     NavigationStack {
-        CategoryRowView(
-            categories: SampleData.categories,
-            showSeeAll: true
-        )
+        CategoryRowView()
     }
 }

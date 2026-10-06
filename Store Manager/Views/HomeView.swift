@@ -1,84 +1,95 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var categories: [ProductCategory] = []
-    @State private var products: [Product] = []
+    @State private var searchText = ""
+    @State private var showingAddressSheet = false
+    @State private var currentAddress = "Phường Trấn Biên, Thành phố Đồng Nai"
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: true) {
                 VStack(spacing: 16) {
+                    HomeHeaderView()
                     
-                    // 1. Header
-                    HomeHeaderView(
-                        storeName: "Cá Cảnh Xinh",
-                        subtitle: "Thế giới thủy sinh trong tầm tay ♡"
-                    )
-                    
-                    // 2. Location row + Search bar
-                    VStack(spacing: 12) {
-                        // LocationRowView
-                        HStack {
-                            Image(systemName: "mappin.and.ellipse").foregroundColor(.blue)
-                            Text("Giao đến: Phường Trấn Biên, Thành phố Đồng Nai")
+                    // Nút chọn địa chỉ giao hàng
+                    Button(action: { showingAddressSheet = true }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundColor(.blue)
                                 .font(.subheadline)
-                                .lineLimit(1)
+                            
+                            Text("Giao đến: ")
+                                .font(.system(size: 13))
+                                .foregroundColor(.gray) +
+                            Text(currentAddress)
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundColor(.blue)
+                            
                             Spacer()
+                            
                             Image(systemName: "chevron.right")
                                 .font(.caption)
                                 .foregroundColor(.gray)
                         }
-                        .padding(.horizontal)
+                        .padding(.horizontal, 14)
                         .padding(.vertical, 10)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(8)
-                        
-                        // SearchBarView
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.gray)
-                            Text("Tìm cá, cây thủy sinh, phụ kiện...")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            Spacer()
-                            Image(systemName: "barcode.viewfinder")
-                                .foregroundColor(.blue)
-                        }
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(10)
+                        .background(Color.blue.opacity(0.06))
+                        .cornerRadius(20)
+                        .padding(.horizontal)
                     }
+                    
+                    // Ô tìm kiếm
+                    HStack(spacing: 10) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                        
+                        TextField("Tìm cá, cây thủy sinh, phụ kiện...", text: $searchText)
+                            .font(.system(size: 14))
+                        
+                        Button(action: {}) {
+                            Image(systemName: "viewfinder")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 18))
+                        }
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 11)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(14)
                     .padding(.horizontal)
                     
-                    // 3. Banner
                     BannerView()
                     
-                    // 4. Danh mục
-                    CategoryRowView(categories: categories, showSeeAll: true)
-                        .padding(.vertical, 8)
+                    CategoryRowView()
                     
-                    // 5. Sản phẩm nổi bật
-                    ProductSectionView(
-                        title: "Sản phẩm nổi bật",
-                        products: products,
-                        showSeeAll: true
-                    )
-                    
-                    Spacer()
+                    ProductSectionView(title: "Sản phẩm nổi bật")
+                        .padding(.bottom, 70)
                 }
-                .padding(.bottom, 20)
+                .padding(.top, 6)
             }
-            .background(Color(.systemGroupedBackground))
-            .toolbar(.hidden, for: .navigationBar)
-            .onAppear {
-                loadSampleData()
+            .navigationBarHidden(true)
+            .sheet(isPresented: $showingAddressSheet) {
+                NavigationStack {
+                    List {
+                        Button("Phường Trấn Biên, TP. Đồng Nai") {
+                            currentAddress = "Phường Trấn Biên, Thành phố Đồng Nai"
+                            showingAddressSheet = false
+                        }
+                        Button("Phường Linh Trung, TP. Thủ Đức") {
+                            currentAddress = "Phường Linh Trung, TP. Thủ Đức"
+                            showingAddressSheet = false
+                        }
+                        Button("Quận 1, TP. Hồ Chí Minh") {
+                            currentAddress = "Quận 1, TP. Hồ Chí Minh"
+                            showingAddressSheet = false
+                        }
+                    }
+                    .navigationTitle("Chọn địa chỉ giao hàng")
+                    .navigationBarTitleDisplayMode(.inline)
+                }
+                .presentationDetents([.fraction(0.35)])
             }
         }
-    }
-    
-    private func loadSampleData() {
-        categories = SampleData.categories
-        products = SampleData.products
     }
 }
 
