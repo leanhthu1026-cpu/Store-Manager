@@ -1,3 +1,5 @@
+//Anh Thư
+
 import SwiftUI
 
 struct ProductCardView: View {
@@ -15,14 +17,16 @@ struct ProductCardView: View {
                     .fill(Color.orange.opacity(0.12))
                     .frame(height: 100)
                     .overlay(
-                        Image(systemName: product.imageName)
+                        Image(product.imageName)
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 44, height: 44)
-                            .foregroundColor(.orange)
+                            .scaledToFill()
+                            .frame(width: 115, height: 100)
+                            .cornerRadius(10)
+                            .clipped()
+                            .shadow(color: Color.black.opacity(0.24), radius: 2, x: 0, y: 1)
                     )
                 
-                // Nút bấm yêu thích hình trái tim
+                //Favorite button
                 Button(action: {
                     cartManager.toggleFavorite(product: product)
                 }) {
@@ -51,7 +55,7 @@ struct ProductCardView: View {
                 
                 Spacer()
                 
-                // Nút bấm thêm vào giỏ
+                //Add to cart button
                 Button(action: {
                     cartManager.addToCart(product: product)
                 }) {

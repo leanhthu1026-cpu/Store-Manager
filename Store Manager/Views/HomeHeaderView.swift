@@ -1,7 +1,9 @@
+//Châu Anh
+
 import SwiftUI
 
 struct HomeHeaderView: View {
-    var storeName: String = "Cá Cảnh Xinh"
+    var storeName: String = "CÁ CẢNH XINH"
     var subtitle: String = "Thế giới thủy sinh trong tầm tay ♡"
     
     var cartManager = CartManager.shared
@@ -19,10 +21,11 @@ struct HomeHeaderView: View {
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(storeName)
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.black)
+                    
                     Text(subtitle)
-                        .font(.caption)
+                        .font(.system(size: 12, weight: .bold, design: .rounded))
                         .foregroundColor(.gray)
                 }
             }
@@ -43,7 +46,6 @@ struct HomeHeaderView: View {
                     }
                 }
                 
-                // Nút giỏ hàng tự động cập nhật số lượng
                 Button(action: { showCartSheet = true }) {
                     ZStack(alignment: .topTrailing) {
                         Image(systemName: "cart")
@@ -74,4 +76,8 @@ struct HomeHeaderView: View {
             }
         }
     }
+}
+
+#Preview {
+    HomeHeaderView()
 }

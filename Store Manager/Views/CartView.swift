@@ -1,3 +1,5 @@
+//Anh Thư
+
 import SwiftUI
 
 struct CartView: View {
@@ -20,13 +22,16 @@ struct CartView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background làm mờ
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(0.35)
-                    .blur(radius: 3)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color.blue.opacity(0.35),
+                        Color.mint.opacity(0.25),
+                        Color.yellow.opacity(0.15)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
                     if cartManager.cartItems.isEmpty {
@@ -43,11 +48,11 @@ struct CartView: View {
                                         .fill(Color.orange.opacity(0.12))
                                         .frame(width: 54, height: 54)
                                         .overlay(
-                                            Image(systemName: item.product.imageName)
+                                            Image(item.product.imageName)
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 28, height: 28)
-                                                .foregroundColor(.orange)
+                                                .scaledToFill()
+                                                .frame(width: 54, height: 54)
+                                                .cornerRadius(5)
                                         )
                                     
                                     VStack(alignment: .leading, spacing: 4) {
@@ -121,14 +126,17 @@ struct CartView: View {
                     }
                 }
             }
-            .navigationTitle("Giỏ hàng")
-            .navigationBarTitleDisplayMode(.inline) // Đưa tiêu đề lên thanh trên cùng
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("GIỎ HÀNG")
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.primary)
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Đóng") {
-                        dismiss()
-                    }
-                    .fontWeight(.medium)
+                    Button("Đóng") { dismiss() }
+                        .fontWeight(.medium)
                 }
             }
             .alert("Đặt hàng thành công!", isPresented: $showSuccessAlert) {

@@ -1,3 +1,5 @@
+//Châu Anh
+
 import SwiftUI
 
 struct HomeView: View {
@@ -5,7 +7,7 @@ struct HomeView: View {
     @State private var showingAddressSheet = false
     @State private var currentAddress = "Phường Trấn Biên, Thành phố Đồng Nai"
     
-    // Lọc sản phẩm theo từ khoá tìm kiếm
+    //Search with name
     var searchResults: [Product] {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.isEmpty {
@@ -26,19 +28,22 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Ảnh nền "background" được làm mờ nhẹ
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(0.3)
-                    .blur(radius: 3)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color.blue.opacity(0.35),
+                        Color.mint.opacity(0.25),
+                        Color.yellow.opacity(0.15)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 16) {
                         HomeHeaderView()
                         
-                        // Nút chọn địa chỉ giao hàng
+                        //Delivered adress box
                         Button(action: { showingAddressSheet = true }) {
                             HStack(spacing: 8) {
                                 Image(systemName: "mappin.and.ellipse")
@@ -62,14 +67,15 @@ struct HomeView: View {
                             .padding(.horizontal)
                         }
                         
-                        // Ô tìm kiếm có nút xoá nhanh (xmark)
+                        //Search box
                         HStack(spacing: 10) {
                             Image(systemName: "magnifyingglass")
                                 .foregroundColor(.gray)
                             
                             TextField("Tìm cá, cây thủy sinh, phụ kiện...", text: $searchText)
                                 .font(.system(size: 14))
-                                .autocorrectionDisabled()
+                                .keyboardType(.default)
+                                .textInputAutocapitalization(.never)
                             
                             if !searchText.isEmpty {
                                 Button(action: {
@@ -93,7 +99,6 @@ struct HomeView: View {
                         .cornerRadius(14)
                         .padding(.horizontal)
                         
-                        // Nếu đang gõ tìm kiếm -> Hiển thị kết quả tìm kiếm
                         if !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
@@ -122,7 +127,7 @@ struct HomeView: View {
                             }
                             .padding(.bottom, 70)
                         } else {
-                            // Khi không tìm kiếm -> Hiển thị giao diện Trang chủ bình thường
+                            //When not in search
                             BannerView()
                             
                             CategoryRowView()
