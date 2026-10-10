@@ -1,5 +1,8 @@
 # Store-Manager
 
+Lê Võ Anh Thư - SESEIU24024
+Võ Châu Anh - SESEIU24001
+
 <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-10-07 at 13 17 19" src="https://github.com/user-attachments/assets/db7a4bd8-aaf1-4d93-93a4-c0ecc92a3e2e" />
 
 <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-10-07 at 13 17 28" src="https://github.com/user-attachments/assets/4b1e05ac-9c74-4ae9-90d3-43415b5d9dac" />
