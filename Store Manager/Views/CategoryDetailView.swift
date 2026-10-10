@@ -3,7 +3,7 @@ import SwiftUI
 struct CategoryDetailView: View {
     let category: ProductCategory
     
-    // Lọc sản phẩm theo categoryId
+    // Lọc sản phẩm theo danh mục
     var filteredProducts: [Product] {
         SampleData.products.filter { $0.categoryId == category.id }
     }
@@ -14,51 +14,32 @@ struct CategoryDetailView: View {
     ]
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            if filteredProducts.isEmpty {
-                ContentUnavailableView(
-                    "Đang cập nhật sản phẩm",
-                    systemImage: "tray.fill",
-                    description: Text("Các mặt hàng cho mục \(category.name) sẽ sớm có mặt!")
-                )
-                .padding(.top, 50)
-            } else {
-                LazyVGrid(columns: columns, spacing: 14) {
-                    ForEach(filteredProducts) { item in
-                        VStack(alignment: .leading, spacing: 8) {
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.orange.opacity(0.12))
-                                .frame(height: 110)
-                                .overlay(
-                                    Image(systemName: item.imageName)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 44, height: 44)
-                                        .foregroundColor(.orange)
-                                )
-                            
-                            Text(item.name)
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .lineLimit(1)
-                            
-                            Text(item.description)
-                                .font(.caption2)
-                                .foregroundColor(.gray)
-                                .lineLimit(2)
-                            
-                            Text(item.formattedPrice)
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(.red)
+        ZStack {
+            // Background chung làm mờ
+            Image("background")
+                .resizable()
+                .scaledToFill()
+                .opacity(0.35)
+                .blur(radius: 3)
+                .ignoresSafeArea()
+            
+            ScrollView(showsIndicators: false) {
+                if filteredProducts.isEmpty {
+                    ContentUnavailableView(
+                        "Đang cập nhật sản phẩm",
+                        systemImage: "tray.fill",
+                        description: Text("Các mặt hàng cho mục \(category.name) sẽ sớm có mặt!")
+                    )
+                    .padding(.top, 50)
+                } else {
+                    LazyVGrid(columns: columns, spacing: 14) {
+                        ForEach(filteredProducts) { item in
+                            ProductCardView(product: item)
+                                .frame(maxWidth: .infinity)
                         }
-                        .padding(10)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(14)
-                        .shadow(color: Color.black.opacity(0.05), radius: 3)
                     }
+                    .padding(16)
                 }
-                .padding(16)
             }
         }
         .navigationTitle(category.name)
