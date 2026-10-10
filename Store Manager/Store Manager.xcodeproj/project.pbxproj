@@ -28,6 +28,7 @@
 		B0B0F93D3075077700D47B46 /* Double+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F93C3075077700D47B46 /* Double+Format.swift */; };
 		B0B0F93F30750D9800D47B46 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */; };
 		B0B0F94130750E5100D47B46 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F94030750E5100D47B46 /* CartManager.swift */; };
+		B0B0F94F307604FC00D47B46 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0F94E307604FC00D47B46 /* FavoritesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		B0B0F93C3075077700D47B46 /* Double+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Format.swift"; sourceTree = "<group>"; };
 		B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		B0B0F94030750E5100D47B46 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
+		B0B0F94E307604FC00D47B46 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -109,6 +111,7 @@
 				8094D2EE3074DF350005B11F /* AllItemsView.swift */,
 				B0B0F93E30750D9800D47B46 /* CategoryDetailView.swift */,
 				B0B0F94030750E5100D47B46 /* CartManager.swift */,
+				B0B0F94E307604FC00D47B46 /* FavoritesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				8094D2E33074D46A0005B11F /* HomeView.swift in Sources */,
 				8045D50430736E1600328D7C /* Product.swift in Sources */,
 				8045D50630736E1600328D7C /* OrderView.swift in Sources */,
+				B0B0F94F307604FC00D47B46 /* FavoritesView.swift in Sources */,
 				8045D50730736E1600328D7C /* HomeHeaderView.swift in Sources */,
 				8094D2ED3074D8C70005B11F /* SampleData.swift in Sources */,
 				8045D50830736E1600328D7C /* CartView.swift in Sources */,

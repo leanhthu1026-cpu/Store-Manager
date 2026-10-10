@@ -1,7 +1,7 @@
 import Foundation
 
 struct SampleData {
-    // 1. Tạo sẵn các ID cố định để liên kết giữa Category và Product
+    // 1. Khởi tạo ID cố định cho 10 danh mục
     static let caCanhID = UUID()
     static let cayThuySinhID = UUID()
     static let phuKienBeID = UUID()
@@ -13,21 +13,21 @@ struct SampleData {
     static let khuyenMaiID = UUID()
     static let tuVanID = UUID()
 
-    // 2. Danh sách 10 danh mục chuẩn
+    // 2. Danh sách 10 danh mục chuẩn dùng tên ảnh Assets không dấu
     static let fullCategories: [ProductCategory] = [
-        ProductCategory(id: caCanhID, name: "Cá cảnh", subtitle: "Cá nước ngọt\nCá biển", iconName: "fish.fill"),
-        ProductCategory(id: cayThuySinhID, name: "Cây thủy sinh", subtitle: "Cây tiền cảnh\nCây trung cảnh", iconName: "leaf.fill"),
-        ProductCategory(id: phuKienBeID, name: "Phụ kiện bể", subtitle: "Đá, lũa, nền\n ", iconName: "cube.fill"),
-        ProductCategory(id: beCaID, name: "Bể cá", subtitle: "Bể thủy sinh\nBể kính", iconName: "square.fill"),
-        ProductCategory(id: thietBiLocID, name: "Thiết bị lọc", subtitle: "Máy lọc, sủi khí\nĐèn LED", iconName: "drop.fill"),
-        ProductCategory(id: thucAnID, name: "Thức ăn", subtitle: "Thức ăn cá\nThức ăn tép", iconName: "takeoutbag.and.cup.and.straw.fill"),
-        ProductCategory(id: thuocID, name: "Thuốc & Chăm sóc", subtitle: "Thuốc trị bệnh\nDinh dưỡng", iconName: "cross.case.fill"),
-        ProductCategory(id: tepCanhID, name: "Tép cảnh", subtitle: "Tép kiểng\nTép màu", iconName: "ant.fill"),
-        ProductCategory(id: khuyenMaiID, name: "Khuyến mãi", subtitle: "Ưu đãi hôm nay\n ", iconName: "tag.fill"),
-        ProductCategory(id: tuVanID, name: "Tư vấn", subtitle: "Hỏi đáp\nKinh nghiệm", iconName: "bubble.left.and.bubble.right.fill")
+        ProductCategory(id: caCanhID, name: "Cá cảnh", subtitle: "Cá nước ngọt\nCá biển", iconName: "cacanh"),
+        ProductCategory(id: cayThuySinhID, name: "Cây thủy sinh", subtitle: "Cây tiền cảnh\nCây trung cảnh", iconName: "caythuysinh"),
+        ProductCategory(id: phuKienBeID, name: "Phụ kiện bể", subtitle: "Đá, lũa, nền\n ", iconName: "phukienbe"),
+        ProductCategory(id: beCaID, name: "Bể cá", subtitle: "Bể thủy sinh\nBể kính", iconName: "beca"),
+        ProductCategory(id: thietBiLocID, name: "Thiết bị lọc", subtitle: "Máy lọc, sủi khí\nĐèn LED", iconName: "thietbiloc"),
+        ProductCategory(id: thucAnID, name: "Thức ăn", subtitle: "Thức ăn cá\nThức ăn tép", iconName: "thucan"),
+        ProductCategory(id: thuocID, name: "Thuốc & Chăm sóc", subtitle: "Thuốc trị bệnh\nDinh dưỡng", iconName: "thuocvachamsoc"),
+        ProductCategory(id: tepCanhID, name: "Tép cảnh", subtitle: "Tép kiểng\nTép màu", iconName: "tepcanh"),
+        ProductCategory(id: khuyenMaiID, name: "Khuyến mãi", subtitle: "Ưu đãi hôm nay\n ", iconName: "khuyenmai"),
+        ProductCategory(id: tuVanID, name: "Tư vấn", subtitle: "Hỏi đáp\nKinh nghiệm", iconName: "tuvan")
     ]
     
-    // 3. Danh sách sản phẩm chi tiết cho từng nhóm
+    // 3. Danh sách sản phẩm mẫu liên kết theo từng danh mục
     static let products: [Product] = [
         // Cá cảnh
         Product(name: "Cá Vàng Ranchu", categoryId: caCanhID, price: 65000, imageName: "fish.fill", description: "Cá Ranchu thân tròn, vảy sáng bóng khỏe mạnh", stock: 15),
@@ -70,15 +70,14 @@ struct SampleData {
         Product(name: "Combo 10 Cá Neon + Ráy", categoryId: khuyenMaiID, price: 150000, imageName: "tag.fill", description: "Gói combo tiết kiệm cho người mới bắt đầu", stock: 10)
     ]
     
-    // Giỏ hàng mẫu
-    static let cartItems: [CartItem] = [
+    // Giỏ hàng ban đầu
+    static var cartItems: [CartItem] = [
         CartItem(product: products[0], quantity: 2),
         CartItem(product: products[4], quantity: 1)
     ]
     
-    // Đơn hàng mẫu
+    // Đơn hàng ban đầu
     static var orders: [Order] = [
-        Order(customerName: "Văn A", items: cartItems, orderDate: Date(), status: .shipping, shippingFee: 15000)
+        Order(customerName: "Nguyen Van A", items: cartItems, orderDate: Date(), status: .shipping, shippingFee: 15000)
     ]
-    
 }

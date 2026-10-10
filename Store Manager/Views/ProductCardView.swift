@@ -3,7 +3,10 @@ import SwiftUI
 struct ProductCardView: View {
     let product: Product
     var cartManager = CartManager.shared
-    @State private var showAddedAlert = false
+    
+    var isFavorite: Bool {
+        cartManager.isFavorite(product: product)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -19,12 +22,20 @@ struct ProductCardView: View {
                             .foregroundColor(.orange)
                     )
                 
-                Image(systemName: "heart")
-                    .font(.caption)
-                    .padding(6)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                    .padding(6)
+                // Nút bấm yêu thích hình trái tim
+                Button(action: {
+                    cartManager.toggleFavorite(product: product)
+                }) {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .font(.caption)
+                        .foregroundColor(isFavorite ? .red : .gray)
+                        .padding(6)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .shadow(color: Color.black.opacity(0.12), radius: 2)
+                }
+                .buttonStyle(.plain)
+                .padding(6)
             }
             
             Text(product.name)
@@ -40,7 +51,7 @@ struct ProductCardView: View {
                 
                 Spacer()
                 
-                // Nút bấm thêm vào giỏ hàng
+                // Nút bấm thêm vào giỏ
                 Button(action: {
                     cartManager.addToCart(product: product)
                 }) {
