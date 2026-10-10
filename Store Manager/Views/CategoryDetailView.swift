@@ -1,9 +1,11 @@
+//Châu Anh
+
 import SwiftUI
 
 struct CategoryDetailView: View {
     let category: ProductCategory
     
-    // Lọc sản phẩm theo danh mục
+    //Filter Products in Categories
     var filteredProducts: [Product] {
         SampleData.products.filter { $0.categoryId == category.id }
     }
@@ -15,13 +17,16 @@ struct CategoryDetailView: View {
     
     var body: some View {
         ZStack {
-            // Background chung làm mờ
-            Image("background")
-                .resizable()
-                .scaledToFill()
-                .opacity(0.35)
-                .blur(radius: 3)
-                .ignoresSafeArea()
+            LinearGradient(
+                colors: [
+                    Color.blue.opacity(0.35),
+                    Color.mint.opacity(0.25),
+                    Color.yellow.opacity(0.15)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
                 if filteredProducts.isEmpty {
@@ -42,8 +47,13 @@ struct CategoryDetailView: View {
                 }
             }
         }
-        .navigationTitle(category.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(category.name)
+                    .font(.system(size: 22, weight: .heavy, design: .rounded))
+            }
+        }
     }
 }
 

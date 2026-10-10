@@ -1,3 +1,5 @@
+//Châu Anh
+
 import SwiftUI
 
 struct ContentView: View {
@@ -13,7 +15,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            AllItemsView()
+            AllCategoriesView()
                 .tabItem {
                     Image(systemName: "square.grid.2x2.fill")
                     Text("Danh mục")

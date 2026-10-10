@@ -1,3 +1,5 @@
+//Anh Thư
+
 import SwiftUI
 
 struct FavoritesView: View {
@@ -11,13 +13,16 @@ struct FavoritesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background làm mờ
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(0.35)
-                    .blur(radius: 3)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color.blue.opacity(0.35),
+                        Color.mint.opacity(0.25),
+                        Color.yellow.opacity(0.15)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 Group {
                     if cartManager.favoriteProducts.isEmpty {
@@ -41,8 +46,13 @@ struct FavoritesView: View {
                     }
                 }
             }
-            .navigationTitle("Yêu thích")
-            .navigationBarTitleDisplayMode(.inline) // Đưa tiêu đề lên thanh bar trên cùng
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("YÊU THÍCH")
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                }
+            }
         }
     }
 }

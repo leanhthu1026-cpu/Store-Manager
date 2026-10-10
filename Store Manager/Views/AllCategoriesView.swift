@@ -1,7 +1,9 @@
+//Châu Anh
+
 import SwiftUI
 
-struct AllItemsView: View {
-    var title: String = "Danh mục sản phẩm"
+struct AllCategoriesView: View {
+    var title: String = "DANH MỤC SẢN PHẨM"
     let categories: [ProductCategory] = SampleData.fullCategories
     
     let columns = [
@@ -12,13 +14,16 @@ struct AllItemsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background làm mờ
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(0.35)
-                    .blur(radius: 3)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color.blue.opacity(0.35),
+                        Color.mint.opacity(0.25),
+                        Color.yellow.opacity(0.15)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: columns, spacing: 14) {
@@ -54,16 +59,21 @@ struct AllItemsView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.top, 16)       // Cách mép trên để các ô không bị sát
+                    .padding(.top, 16)
                     .padding(.bottom, 70)
                 }
             }
-            .navigationTitle(title)
-            .navigationBarTitleDisplayMode(.inline) // Tách tiêu đề lên thanh bar trên cùng
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(title)
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                }
+            }
         }
     }
 }
 
 #Preview {
-    AllItemsView()
+    AllCategoriesView()
 }

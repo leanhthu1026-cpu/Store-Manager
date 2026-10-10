@@ -1,3 +1,5 @@
+//Châu Anh
+
 import SwiftUI
 
 struct ProductSectionView: View {
@@ -9,10 +11,18 @@ struct ProductSectionView: View {
             HStack {
                 Text(title)
                     .font(.headline)
+                    .fontWeight(.bold)
+                
                 Spacer()
-                Text("Xem tất cả >")
-                    .font(.caption)
+                
+                NavigationLink(destination: AllProductsView(products: products)) {
+                    HStack(spacing: 4) {
+                        Text("Xem tất cả")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.subheadline)
                     .foregroundColor(.blue)
+                }
             }
             .padding(.horizontal)
             

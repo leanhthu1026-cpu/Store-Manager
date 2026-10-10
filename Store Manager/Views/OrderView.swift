@@ -1,3 +1,5 @@
+//Anh Thư
+
 import SwiftUI
 
 struct OrderView: View {
@@ -6,13 +8,16 @@ struct OrderView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background làm mờ
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(0.35)
-                    .blur(radius: 3)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color.blue.opacity(0.35),
+                        Color.mint.opacity(0.25),
+                        Color.yellow.opacity(0.15)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 Group {
                     if cartManager.orders.isEmpty {
@@ -70,8 +75,13 @@ struct OrderView: View {
                     }
                 }
             }
-            .navigationTitle("Đơn hàng")
-            .navigationBarTitleDisplayMode(.inline) // Đẩy tiêu đề lên thanh bar trên cùng
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("ĐƠN HÀNG")
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                }
+            }
         }
     }
 }

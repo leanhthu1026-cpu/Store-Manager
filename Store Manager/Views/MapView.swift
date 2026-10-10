@@ -1,3 +1,5 @@
+//Anh Thư
+
 import SwiftUI
 import MapKit
 
@@ -9,8 +11,13 @@ struct MapView: View {
     
     var body: some View {
         Map(coordinateRegion: $region)
-            .navigationTitle("Địa chỉ cửa hàng")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("ĐỊA CHỈ CỬA HÀNG")
+                        .font(.system(size: 22, weight: .heavy, design: .monospaced))
+                }
+            }
     }
 }
 
